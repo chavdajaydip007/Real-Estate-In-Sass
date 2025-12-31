@@ -1,0 +1,1147 @@
+@use "variable" as vars;
+@use "mixin" as mix;
+
+@font-face {
+    font-family: 'Lato-bold';
+    src: url('../fonts/Lato-Bold.eot');
+    src: url('../fonts/Lato-Bold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Lato-Bold.woff2') format('woff2'),
+        url('../fonts/Lato-Bold.woff') format('woff'),
+        url('../fonts/Lato-Bold.ttf') format('truetype'),
+        url('../fonts/Lato-Bold.svg#Lato-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Montserrat-semibold';
+    src: url('../fonts/Montserrat-SemiBold.eot');
+    src: url('../fonts/Montserrat-SemiBold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Montserrat-SemiBold.woff2') format('woff2'),
+        url('../fonts/Montserrat-SemiBold.woff') format('woff'),
+        url('../fonts/Montserrat-SemiBold.ttf') format('truetype'),
+        url('../fonts/Montserrat-SemiBold.svg#Montserrat-SemiBold') format('svg');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Lato-regular';
+    src: url('../fonts/Lato-Regular.eot');
+    src: url('../fonts/Lato-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Lato-Regular.woff2') format('woff2'),
+        url('../fonts/Lato-Regular.woff') format('woff'),
+        url('../fonts/Lato-Regular.ttf') format('truetype'),
+        url('../fonts/Lato-Regular.svg#Lato-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Lato-black';
+    src: url('../fonts/Lato-Black.eot');
+    src: url('../fonts/Lato-Black.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Lato-Black.woff2') format('woff2'),
+        url('../fonts/Lato-Black.woff') format('woff'),
+        url('../fonts/Lato-Black.ttf') format('truetype'),
+        url('../fonts/Lato-Black.svg#Lato-Black') format('svg');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Lato-italic';
+    src: url('../fonts/Lato-Italic.eot');
+    src: url('../fonts/Lato-Italic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Lato-Italic.woff2') format('woff2'),
+        url('../fonts/Lato-Italic.woff') format('woff'),
+        url('../fonts/Lato-Italic.ttf') format('truetype'),
+        url('../fonts/Lato-Italic.svg#Lato-Italic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* Breakpoint sizes */
+$screen-mm-min: 767px;
+$screen-ad-max: 479px;
+$screen-sm-max: 639px;
+$screen-md-max: 767px;
+$screen-sd-max: 979px;
+$screen-ld-max: 1024px;
+$screen-lg-max: 1099px;
+
+/* Create the mixin (usually in a separate .scss file) */
+@mixin breakpoint($media) {
+  @if $media == ad {
+    @media only screen and (max-width: $screen-ad-max) { @content; }
+  }
+   @else if $media == sm {
+    @media only screen and (max-width: $screen-sm-max) { @content; }
+  }
+  @else if $media == md {
+    @media only screen and (max-width: $screen-md-max) { @content; }
+  }
+  @else if $media == sd {
+    @media only screen and (max-width: $screen-sd-max) { @content; }
+  }
+  @else if $media == ld {
+    @media only screen and (max-width: $screen-ld-max) { @content; }
+  }
+  @else if $media == lg {
+    @media only screen and (max-width: $screen-lg-max) { @content; }
+  }
+  @else if $media == mm {
+    @media only screen and (min-width: $screen-mm-min) { @content; }
+  }
+}
+
+
+
+*{
+    box-sizing: border-box;
+}
+body{
+    margin: 0;
+    .mm-menu--theme-white{
+        --mm-color-background: #ff214f;
+    }
+}
+ul,ol{
+    margin: 0;
+    padding: 0;
+}
+h1,h2,h3,h4,h5,h6,p{
+    margin: 0;
+}
+img{
+    max-width: 100%;
+}
+a{
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.3s;
+}
+.table{
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    height: 100%;
+    .table-cell{
+        display: table-cell;
+        vertical-align: middle ;
+    }
+}
+header{
+    padding: 20px 0;
+    position: relative;
+}
+.container{
+        width: 100%;
+        float: left;
+        padding-left: 20px;
+        padding-right: 20px;
+        background: vars.$light-white;
+        .mobile-menu{
+            position: absolute;
+            a{
+                img{
+                    &:last-child{
+                        display: none;
+                    }
+                    .mm-wrapper--opened &:first-child{
+                        display: none;
+                    }
+                    .mm-wrapper--opened &:last-child{
+                        display: block;
+                    }
+                }
+            }
+            @include breakpoint(mm){
+                display: none;
+            }
+        }
+        .row{
+            max-width: 1170px;
+            margin: 0 auto;
+            .logo{
+                display: table-cell;
+                width: 20%;
+                line-height: 1px;
+                img{
+                    @include breakpoint(md){
+                        width: 50%;
+                    }
+                }
+                @include breakpoint(md){
+                    text-align: center;
+                }
+            }
+            .btn{
+                text-align: right;
+                display: table-cell;
+                vertical-align: middle;
+                @include breakpoint(md){
+                    display: none;
+                }
+                a{
+                    @include mix.benner(15px,17px,vars.$white,0);
+                    background: vars.$secondarycolor;
+                    padding: 19px 0;
+                    max-width: 183px;
+                    width: 100%;
+                    text-align: center;
+                    font-family: 'Montserrat-semibold';
+                    @include breakpoint(sd){
+                            padding: 5px 0;
+                            @include mix.benner(14px,16px,vars.$white,0);
+                    }
+                    &:hover{
+                        background: vars.$primarycolor;
+                    }
+                }
+            }
+            .table-cell{
+                width: 60%;
+                text-align: right;
+                @include breakpoint(md){
+                    width: 0%;
+                }
+                @include breakpoint(lg){
+                    text-align: center;
+                }
+                nav{
+                    @include breakpoint(md){
+                        display: none;
+                    }
+                } ul{
+                    list-style: none;
+                    li{
+                        display: inline-block;
+                        margin-left: 26px;
+                        @include breakpoint(lg){
+                            margin-left: 18px
+                        }
+                        @include breakpoint(sd){
+                            margin-left: 5px
+                        }
+                        a{
+                            @include mix.benner(17px,19px,vars.$primarycolor,0);
+                            font-family: 'Lato-bold';
+                            @include breakpoint(sd){
+                                @include mix.benner(15px,17px,vars.$primarycolor,0);
+                            }
+                            &:hover{
+                                color: vars.$secondarycolor;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+}
+
+// benner section style start
+
+.benner-section{
+    // background: url(../images/bg-1.jpg) no-repeat top center;
+    // background-size: cover;
+    position: relative;
+    overflow: hidden;
+    .video{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+    &:after{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: vars.$light-blue;
+        opacity: 0.4;
+    }
+    .row{
+        .table{
+             .table-cell{
+        text-align: center;
+        height: 600px;
+        position: relative;
+        z-index: 2;
+        @include breakpoint(sd){
+            height: 500px;
+        }
+        @include breakpoint(md){
+            height: 400px;
+        }
+        @include breakpoint(ad){
+            height: 350px;
+        }
+        h2{
+            @include mix.benner(56px,56px,vars.$light-white,0);
+            font-family: 'Lato-bold';
+            @include breakpoint(sd){
+                @include mix.benner(40px,42px,vars.$light-white,0);
+            }
+            @include breakpoint(md){
+                @include mix.benner(35px,37px,vars.$light-white,0);
+            }
+            @include breakpoint(ad){
+                @include mix.benner(28px,30px,vars.$light-white,0);
+            }
+        }
+        h1{
+            @include mix.benner(90px,90px,vars.$light-white,0);
+            font-family: 'Lato-bold';
+            @include breakpoint(sd){
+                @include mix.benner(70px,72px,vars.$light-white,0);
+            }
+            @include breakpoint(md){
+                @include mix.benner(60px,62px,vars.$light-white,0);
+            }
+            @include breakpoint(sm){
+                @include mix.benner(50px,52px,vars.$light-white,5px);
+            }
+            @include breakpoint(sm){
+                @include mix.benner(38px,40px,vars.$light-white,5px);
+            }
+        }
+        p{
+            margin: 0 auto;
+            @include mix.benner(22px,23px,vars.$f7,8px);
+            max-width: 635px;
+            text-transform: lowercase;
+            width: 100%;
+            font-family: 'Lato-regular';
+            @include breakpoint(sd){
+                @include mix.benner(20px,24px,vars.$light-white,0);
+                text-transform: none
+            }
+            @include breakpoint(sd){
+                @include mix.benner(18px,22px,vars.$light-white,0);
+                text-transform: none
+            }
+            @include breakpoint(sm){
+                @include mix.benner(18px,22px,vars.$light-white,5px);
+                text-transform: none
+            }
+            @include breakpoint(ad){
+                @include mix.benner(15px,19px,vars.$light-white,5px);
+                text-transform: none
+            }
+        }
+        a{
+            @include mix.benner(15px,17px,vars.$white,18px);
+            background: vars.$secondarycolor;
+            padding: 19px 0;
+            max-width: 183px;
+            width: 100%;
+            font-family: 'Montserrat-semibold';
+            @include breakpoint(sm){
+               max-width: none;
+            }
+            @include breakpoint(ad){
+               padding: 15px 0;
+            }
+            &:hover{
+                background: vars.$primarycolor;
+            }
+        }
+        .owl-carousel .owl-nav button.owl-prev{
+            position: absolute;
+            content: "";
+            left: -30px;
+            display: inline-block;
+            background-image: url(../images/pri.png) !important;
+            background-size: 10px !important;
+            background: vars.$primarycolor;
+            border-radius: 30px;
+            background-repeat: no-repeat;
+            height: 35px;
+            width: 35px;
+            background-position: center center;
+            color: vars.$white;
+            top: 45%;
+            &:hover{
+                background: vars.$secondarycolor;
+                background-position: center center;
+                background-repeat: no-repeat;
+            }
+            @include breakpoint(lg){
+                left: 0;
+                opacity: 0.4;
+            }
+            
+            
+        }
+        .owl-nav .owl-prev span{
+            display: none;
+        }
+        .owl-carousel .owl-nav button.owl-next{
+            position: absolute;
+            content: "";
+            right: -30px;
+            display: inline-block;
+            background-image: url(../images/nex.png) !important;
+            background-size: 10px !important;
+            background: vars.$primarycolor;
+            border-radius: 30px;
+            background-repeat: no-repeat;
+            height: 35px;
+            width: 35px;
+            background-position: center center;
+            color: vars.$white;
+            top: 45%;
+            &:hover{
+                background: vars.$secondarycolor;
+                background-position: center center;
+                background-repeat: no-repeat;
+            }
+            @include breakpoint(lg) {
+                right: 0;
+                opacity: 0.4;
+            }
+           
+        }
+        .owl-nav .owl-next span{
+            display: none;
+        }
+    }
+        }
+    }
+   
+}
+
+// benner section style end
+
+// places section style start
+
+.places-section{
+    padding: 72px;
+    padding-left: 20px;
+    padding-right: 20px;
+    @include breakpoint(lg) {
+        padding: 60px 0;
+        padding-left: 20px;
+        padding-right: 20px; 
+    }
+    @include breakpoint(md) {
+        padding: 40px 0;
+        padding-left: 20px;
+        padding-right: 20px; 
+    }
+    h2{
+        @include mix.benner(44px,46px,vars.$primarycolor,0);
+        text-align: center;
+        font-family: 'Lato-bold';
+        @include breakpoint(sd){
+            @include mix.benner(40px,42px,vars.$primarycolor,0);
+        }
+        @include breakpoint(sm){
+            @include mix.benner(30px,32px,vars.$primarycolor,0);
+        }
+        @include breakpoint(ad){
+            @include mix.benner(20px,22px,vars.$primarycolor,0);
+        }
+    }
+    p{
+        @include mix.benner(18px,22px,vars.$primarycolor,0);
+        max-width: 564px;
+        width: 100%;
+        padding-top: 8px;
+        text-transform: lowercase;
+        margin: 0 auto;
+        text-align: center;
+        font-family: 'Lato-regular';
+        @include breakpoint(sd){
+            @include mix.benner(16px,20px,vars.$primarycolor,0);
+            text-transform: none;
+        }
+        @include breakpoint(sm){
+            @include mix.benner(15px,19px,vars.$primarycolor,0);
+            text-transform: none;
+        }
+        @include breakpoint(ad){
+            @include mix.benner(13px,17px,vars.$primarycolor,0);
+            text-transform: none;
+        }
+    }
+    .flex{
+        display: flex;
+        gap: 30px;
+        padding-top: 52px;
+        @include breakpoint(md) {
+            padding-top: 30px; 
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .bx{
+            .cell{
+                 &:first-child:hover .content{
+                    @include mix.places(45%,35%);
+                    @include breakpoint(lg){
+                        @include mix.places(40%,38%);
+                    }
+                    @include breakpoint(sd){
+                        @include mix.places(36%,35%);
+                    }
+                    @include breakpoint(md){
+                        @include mix.places(41%,41%);
+                    }
+                    @include breakpoint(sm){
+                        @include mix.places(38%,36%);
+                    }
+                    @include breakpoint(ad){
+                        @include mix.places(32%,30%);
+                    }
+                 }
+            }
+        }
+        .right-img{
+            .cell{
+                &:first-child:hover .content{
+                    @include mix.places(40%,26%);
+                    @include breakpoint(sd){
+                        @include mix.places(35%,22%);
+                    }
+                    @include breakpoint(md){
+                        @include mix.places(40%,30%);
+                    }
+                    @include breakpoint(sm){
+                        @include mix.places(45%,37%);
+                    }
+                    @include breakpoint(ad){
+                        @include mix.places(40%,32%);
+                    }
+                } 
+            }
+        }
+        .cell{
+            @include breakpoint(md){
+                    width: 100%;
+                }
+            img{
+                @include breakpoint(md){
+                    width: 100%;
+                }
+            }
+            line-height: 1px;
+            position: relative;
+            // @include breakpoint(md){
+            //     margin: 0 auto;
+            // }
+            .content{
+                text-align: center;
+                display: none;
+                        h3{
+                            @include mix.benner(26px,28px,vars.$white,0);
+                            font-family: 'Lato-bold';
+                            @include breakpoint(lg){
+                                @include mix.benner(18px,20px,vars.$white,0);
+                            }
+                        }
+                        p{
+                            @include mix.benner(16px,18px,vars.$white,0);
+                            font-family: 'Lato-bold';
+                    }
+            }
+            &:hover:after{
+                position: absolute;
+                content: "";
+                background: vars.$secondarycolor;
+                top: 50px;
+                bottom: 50px;
+                left: 38px;
+                right: 38px;
+                opacity: 0.4;
+                display: block;
+                @include breakpoint(sd){
+                    top: 30px;
+                    bottom: 30px;
+                    left: 20px;
+                    right: 20px;
+                }
+            }
+            &:first-child:hover .content{
+                @include mix.places(50%,30%);
+                @include breakpoint(lg){
+                        @include mix.places(50%,36%);
+                }
+                @include breakpoint(sd){
+                        @include mix.places(40%,30%);
+                }
+                @include breakpoint(md){
+                        @include mix.places(50%,38%);
+                }
+                @include breakpoint(ad){
+                        @include mix.places(44%,32%);
+                }
+            }
+            &:last-child:hover .content{
+                 @include mix.places(40%,26%);
+                @include breakpoint(sd){
+                        @include mix.places(36%,22%);
+                }
+                @include breakpoint(md){
+                        @include mix.places(40%,30%);
+                }
+                @include breakpoint(sm){
+                        @include mix.places(45%,37%);
+                }
+                @include breakpoint(ad){
+                        @include mix.places(40%,32%);
+                }
+            }
+        }
+        .right-img{
+            display: flex;
+            gap: 30px;
+            padding-top: 28px;
+            @include breakpoint(sm){
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .left{
+                line-height: 1px;
+            }
+            .right{
+                line-height: 1px;
+            }
+        }
+    }
+}
+
+// places section style end
+
+// counter section start
+
+.counter-section{
+    padding: 92px 0;
+    background: vars.$secondarycolor;
+    padding-left: 20px;
+    padding-right: 20px;
+    @include breakpoint(lg) {
+        padding: 60px 0;
+        padding-left: 20px;
+        padding-right: 20px; 
+    }
+    @include breakpoint(md) {
+        padding: 40px 0;
+        padding-left: 20px;
+        padding-right: 20px; 
+    }
+    .flex{
+        display: flex;
+        gap: 40px;
+        justify-content: space-around;
+        text-align: center;
+        @include breakpoint(sm) {
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .flex-box{
+            @include breakpoint(sm) {
+                width: 100%;
+            }
+            span{
+                @include mix.benner(50px,52px,vars.$white,0);
+                font-family: 'Lato-black';
+                @include breakpoint(sd){
+                    @include mix.benner(40px,42px,vars.$white,0);
+                }
+            }
+            p{
+                @include mix.benner(18px,20px,vars.$white,20px);
+                font-family: 'Lato-bold';
+                @include breakpoint(sd){
+                    @include mix.benner(14px,16px,vars.$white,15px);
+                }
+            }
+        }
+    }
+}
+
+// counter section end
+
+// property section style start
+
+.property-section{
+    @extend .places-section;
+    .flex{
+        text-align: center;
+        justify-content: space-around;
+        gap: 80px;
+        @include breakpoint(sd){
+            gap: 20px;
+        }
+        .flex-bx{
+            position: relative;
+            &:hover a i{
+                color: vars.$primarycolor;
+            }
+            @include breakpoint(md){
+                padding-top: 30px;
+                &:first-child{
+                    padding-top: 0;
+                }
+            }
+            &:after{
+                @include mix.after;
+                @include breakpoint(lg) {
+                    bottom: -20px;
+                }
+                @include breakpoint(md){
+                    left: 45%;    
+                }
+                @include breakpoint(ad){
+                    left: 40%;    
+                }
+            }
+            &:hover:after{
+                background: vars.$primarycolor;
+                width: 54px;
+                z-index: 1;
+            }
+            // a{
+            //     font-size: 40px; 
+            //     color: vars.$primarycolor;
+            //     &:hover{
+            //         color: vars.$secondarycolor;
+            //     }
+            // }
+            a{
+                i{
+                    font-size: 80px;
+                    line-height: 82px;
+                    color: vars.$secondarycolor;
+                }
+            }
+            .pro{
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+            h2{
+                @include mix.benner(26px,28px,vars.$primarycolor,0);
+                font-family: 'Lato-bold';
+                @include breakpoint(lg) {
+                    @include mix.benner(22px,24px,vars.$primarycolor,0);
+                }
+                @include breakpoint(sd){
+                    @include mix.benner(19px,21px,vars.$primarycolor,0);
+                }
+            }
+            p{
+                @include mix.benner(18px,22px,vars.$primarycolor,6px);
+                text-transform: lowercase;
+                max-width: 305px;
+                width: 100%;
+                padding-top: 0;
+                font-family: 'Lato-regular';
+                @include breakpoint(sd){
+                    @include mix.benner(16px,20px,vars.$primarycolor,6px);
+                    text-transform: none
+                }
+                @include breakpoint(md){
+                    max-width: none;   
+                }
+            }
+        }
+    }
+}
+
+// property section style end
+
+// agent section style start
+
+.agent-section{
+     @extend .places-section;
+     background: vars.$f7;
+     .main-box{
+        margin-top: 50px;
+        @include breakpoint(ad){
+            margin-top: 30px;    
+        }
+        .mrg{
+            margin: 0 -17px;
+            @include breakpoint(sd){
+                margin: 0 -10px;
+            }
+            .box{
+                float: left;
+                width: 50%;
+                padding: 0 17px;
+                @include breakpoint(sd){
+                    padding: 0 10px;
+                }
+                @include breakpoint(md){
+                    width: 100%;
+                }
+                &:nth-child(2){
+                    @include breakpoint(md){
+                    margin-top: 30px;
+                }
+                }
+                &:nth-child(3){
+                    margin-top: 30px;
+                }
+                &:nth-child(4){
+                    margin-top: 30px;
+                }
+                .first-box{
+                        background: vars.$white;
+                        float: left;
+                        width: 100%;
+                        padding: 32px 36px;
+                        text-align: left;
+                        border-radius: 8px;
+                        @include breakpoint(sd){
+                            padding: 20px 20px;
+                        }
+                        .img-box{
+                            float: left;
+                            width: 29.8%;
+                            @include breakpoint(ad){
+                                width: 100%;
+                                text-align: center;    
+                            }
+                        }
+                        .content-box{
+                                float: left;
+                                width: 69.2%;
+                                padding-left: 20px;
+                                @include breakpoint(ad){
+                                    width: 100%;
+                                    text-align: center; 
+                                    padding-left: 0;   
+                                }
+                                h2{
+                                    @include mix.benner(20px,22px,vars.$primarycolor,0);
+                                    text-align: left;
+                                    font-family: 'Lato-bold';
+                                    @include breakpoint(sd){
+                                        @include mix.benner(17px,19px,vars.$primarycolor,0);
+                                    }
+                                    @include breakpoint(ad){
+                                        text-align: center;  
+                                        padding-top: 5px;
+                                    }
+                                }
+                                h3{
+                                    @include mix.benner(14px,16px,vars.$primarycolor,10px);
+                                    text-align: left;
+                                    font-family: 'Lato-bold';
+                                    @include breakpoint(ad){
+                                        text-align: center;    
+                                    }
+                                }
+                                p{
+                                    @include mix.benner(17px,21px,vars.$primarycolor,12px);
+                                    text-transform: lowercase;
+                                    text-align: left;
+                                    max-width: 257px;
+                                    margin: 0;
+                                    padding-top: 10px;
+                                    font-family: 'Lato-regular';
+                                    @include breakpoint(sd){
+                                        @include mix.benner(16px,20px,vars.$primarycolor,10px);
+                                        text-transform: none
+                                    }
+                                    @include breakpoint(ad){
+                                        text-align: center;  
+                                        max-width: none;  
+                                    }
+                                }
+                                span{
+                                    @include mix.benner(16px,18px,vars.$primarycolor,0);
+                                    padding-top: 20px;
+                                    display: inline-block;
+                                    font-family: 'Lato-bold';
+                                    @include breakpoint(sd){
+                                        @include mix.benner(13px,15px,vars.$primarycolor,0);
+                                        padding-top: 15px;
+                                    }
+                                }
+                        }
+                }
+            }
+        }
+     }
+}
+
+// agent section style end
+
+// client-section style start
+
+.client-section{
+    @extend .places-section;
+    .owl-carousel .owl-item img {
+        display: inline-block;
+        width: auto;
+    }
+    .box-content{     
+        background-color: #f7f7f7;
+        text-align: center;
+        max-width: 974px;
+        width: 100%;
+        margin: 0 auto;
+        margin-top: 50px;
+        padding: 40px 20px;
+        position: relative;
+        &:first-child{
+            &:after{
+            content: "";
+            position: absolute;
+            background: url(../images/s.png);
+            height: 29px;
+            width: 139px;
+            bottom: 65px;
+            left: 50%;
+            transform: translate(-50%,0);
+            background-repeat: repeat-x;
+            
+            @include breakpoint(sm){
+                bottom: 68px;
+            }
+            @include breakpoint(ad){
+                bottom: 65px;
+            }
+        }
+        }
+        h2{
+            @include mix.benner(28px,30px,vars.$primarycolor,0);
+            text-transform: none;
+            font-family: 'Lato-bold';
+        }
+        h3{
+            @include mix.benner(18px,20px,vars.$primarycolor,5px);
+            text-transform: none;
+            font-family: 'Lato-regular';
+        }
+        p{
+            @include mix.benner(20px,24px,vars.$primarycolor,15px);
+            text-transform: lowercase;
+            max-width: 762px;
+            width: 100%;
+            margin: 0 auto;
+            font-family: 'Lato-italic';
+            @include breakpoint(ad){
+                @include mix.benner(15px,19px,vars.$primarycolor,5px);
+                text-transform: none;
+                padding-top: 0;
+            }
+        }
+        // img{
+        //     margin-top: 30px;
+        //     @include breakpoint(ad){
+        //         margin-top: 10px;
+        //     }
+        // }
+        h4{
+            @include mix.benner(18px,20px,vars.$secondarycolor,40px);
+            text-transform: none;
+            font-family: 'Lato-bold';
+        }
+    }
+}
+
+// client-section sytle end
+
+// contact section style start
+
+.contact-section{
+    padding-top: 78px;
+    padding-bottom: 100px;
+    background: vars.$secondarycolor;
+    @include breakpoint(lg) {
+        padding: 60px 0;
+        padding-left: 20px;
+        padding-right: 20px; 
+    }
+    @include breakpoint(md) {
+        padding: 40px 0;
+        padding-left: 20px;
+        padding-right: 20px; 
+    }
+    .title{
+        text-align: center;
+        h2{
+            @include mix.benner(70px,72px,vars.$white,0);
+            max-width: 729px;
+            width: 100%;
+            margin: 0 auto;
+            text-transform: none;
+            font-family: 'Lato-bold';
+            @include breakpoint(sd){
+                @include mix.benner(52px,54px,vars.$white,0);
+                text-transform: none;
+            }
+            @include breakpoint(sd){
+                @include mix.benner(45px,47px,vars.$white,0);
+                text-transform: none;
+            }
+            @include breakpoint(sm){
+                @include mix.benner(35px,37px,vars.$white,0);
+                text-transform: none;
+            }
+            @include breakpoint(ad){
+                @include mix.benner(25px,27px,vars.$white,0);
+                text-transform: none;
+            }
+        }
+        h3{
+            @include mix.benner(70px,72px,vars.$white,0);
+            max-width: 798px;
+            width: 100%;
+            margin: 0 auto;
+            text-transform: none;
+            padding-top: 10px;
+            font-family: 'Lato-bold';
+            @include breakpoint(sd){
+                @include mix.benner(52px,54px,vars.$white,0);
+                text-transform: none;
+            }
+            @include breakpoint(sd){
+                @include mix.benner(45px,47px,vars.$white,0);
+                text-transform: none;
+            }
+            @include breakpoint(sm){
+                @include mix.benner(35px,37px,vars.$white,0);
+                text-transform: none;
+                padding-top: 5px;
+            }
+            @include breakpoint(ad){
+                @include mix.benner(24px,26px,vars.$white,0);
+                padding-top: 0;
+                text-transform: none;
+            }
+        }
+        a{
+            @include mix.benner(22px,24px,vars.$white,36px);
+            background: vars.$primarycolor;
+            padding: 15px 0;
+            max-width: 274px;
+            width: 100%;
+            font-family: 'Montserrat-semibold';
+            border: 4px solid vars.$secondarycolor;
+            @include breakpoint(sm){
+                padding: 10px 0;
+                max-width: none;
+            }
+            @include breakpoint(ad){
+                @include mix.benner(18px,20px,vars.$white,15px);
+            }
+            &:hover{
+                background-color: vars.$secondarycolor;
+                border: 4px solid vars.$primarycolor;
+            }
+        }
+    }
+}
+
+// contact section style end
+
+// footer-section style start
+
+.footer-section{
+    padding-top: 65px;
+    padding-bottom: 60px;
+    background: vars.$primarycolor;
+    @include breakpoint(md) {
+        padding: 40px 0;
+        padding-left: 20px;
+        padding-right: 20px; 
+    }
+    .flex{
+        display: flex;
+        justify-content: space-between;
+        @include breakpoint(md){
+            display: flex;
+            flex-wrap: wrap;    
+        }
+        .flex-one{
+            @include breakpoint(md){
+                width: 100%;
+                text-align: center;  
+            }
+            img{
+                width: 60%;
+            }
+            p{
+                @include mix.benner(18px,22px,vars.$white,10px);
+                max-width: 385px;
+                width: 100%;
+                text-transform: none;
+                font-family: 'Lato-regular';
+                @include breakpoint(sd){
+                    @include mix.benner(16px,20px,vars.$white,8px);
+                    text-transform: none;
+                }
+                @include breakpoint(md){
+                    max-width: none;
+                }
+            }
+            h2{
+                @include mix.benner(22px,24px,vars.$white,0);
+                font-family: 'Lato-bold';
+                @include breakpoint(md){
+                    padding-top: 10px;   
+                }
+            }
+            ul{
+                text-decoration: none;
+                li{
+                    list-style: none;
+                    &:first-child{
+                        margin-top: 5px
+                    }
+                    a{
+                        @include mix.benner(16px,18px,vars.$white,6px);
+                        font-family: 'Lato-regular';
+                        @include breakpoint(sd){
+                            @include mix.benner(13px,15px,vars.$white,5px);
+                        }
+                        &:hover{
+                            color: vars.$secondarycolor;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// footer-section style end
+
+// footer
+
+.footer-last{
+    padding-left: 0;
+    padding-right: 0;
+    .copy{
+        background: vars.$secondarycolor;
+        text-align: center;
+        padding: 22px 0;
+        @include breakpoint(ad){
+            padding: 15px 0;    
+        }
+        h2{
+            @include mix.benner(18px,20px,vars.$white,0);
+            text-transform: none;
+            font-family: 'Lato-regular';
+            @include breakpoint(ad){
+                @include mix.benner(15px,17px,vars.$white,0);
+                text-transform: none;
+            }
+        }
+    }
+}
+
+// footer
+
+
+
+

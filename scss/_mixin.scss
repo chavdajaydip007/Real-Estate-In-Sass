@@ -1,0 +1,29 @@
+@use "variable" as vars;
+
+@mixin benner($font:22px,$line:24px,$color:vars.$light-white,$margin-top:15px){
+     font-size: $font;
+     line-height: $line;
+     color: $color;
+     text-transform: uppercase;
+     margin-top: $margin-top;
+}
+
+@mixin places($top:50px,$left:30px){
+     position: absolute;
+     content: "";
+     display: block;
+     top: $top;
+     left: $left;
+     z-index: 1;
+}
+@mixin after($wd:54px){
+      content: "";
+      background: vars.$secondarycolor;
+      height: 6px;
+      width: $wd;
+      bottom: 0;
+      left: 41%;
+      border-radius: 2px;
+      transition: 0.5s;
+      display: inline-block;
+}
